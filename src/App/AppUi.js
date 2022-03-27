@@ -5,7 +5,8 @@ import { TodoSearch } from '../components/TodoSearch';
 import { TodoList } from '../components/TodoList';
 import { TodoItem } from '../components/TodoItem';
 import { CreateTodoButton } from '../components/CreateTodoButton';
-
+import { Modal } from '../components/Modal';
+import { NoEvents } from '../components/NoEvents';
 
 function AppUi() {
 
@@ -14,21 +15,25 @@ function AppUi() {
         loading,
         searchedTodos,
         completeTodo,
-        deleteTodo
+        deleteTodo,
+        openModal,
+        setOpenModal,
+        openInicio,
+      setopenInicio,
+     
     } = React.useContext(TodoContext)
 
     return (
         <React.Fragment>
+            {/* {!searchedTodos.length && <NoEvents/>} */}
             <TodoCounter
             />
             <TodoSearch />
-            {() => (
+            
                 <TodoList>
                     {loading && <p>Estamos cargando</p>}
-                    {error && <p>Algo salio mal</p>}
-                    {(!loading && !searchedTodos.length) && <p>Crea tu primer todo</p>}
-
-                    {searchedTodos.map(todo => (
+                    {error && <p>Algo salio mal</p>} 
+                   {searchedTodos.map(todo => (
                         <TodoItem
                             key={todo.text}
                             text={todo.text}
@@ -39,11 +44,14 @@ function AppUi() {
                         />
                     ))}
                 </TodoList>
-            )}
+            
 
+          {!!openModal && (
+            <Modal ></Modal>)}
 
-
-            <CreateTodoButton />
+            <CreateTodoButton 
+            setOpenModal={setOpenModal}
+            />
         </React.Fragment>
     );
 }

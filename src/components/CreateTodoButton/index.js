@@ -1,16 +1,42 @@
-import React from 'react';
+// import React from 'react';
+// import './CreateTodoButton.css';
+
+// function CreateTodoButton(props) {
+
+//   const onClickButton = () => {
+//     props.setOpenModal(true);
+//   }
+//   return (
+//     <button className="CreateTodoButton"
+//       onClick={onClickButton}
+//     >+</button>
+//   );
+// }
+
+
+// export { CreateTodoButton };
+
+import React, { useContext } from 'react';
+import { TodoContext } from '../../TodoContext';
+import { BsX, BsPlus } from "react-icons/bs";
 import './CreateTodoButton.css';
 
-function CreateTodoButton(props) {
+export const CreateTodoButton = () => {
+  const { openModal, setOpenModal } = useContext(TodoContext);
 
-  const onClickButton = (message) =>{
-    alert(message)
-  }
+  const handleClick = () => {
+    setOpenModal(!openModal);
+  };
+
   return (
-    <button className="CreateTodoButton"
-    onClick={ () => onClickButton('Holi, soy una alerta') }
-    >+</button>
+    <>
+      <button
+        className="CreateTodoButton"
+        type="submit"
+        onClick={() => handleClick()}
+      >
+        {openModal ? <BsX/> : <BsPlus/>}
+      </button>
+    </>
   );
-}
-
-export { CreateTodoButton };
+};
